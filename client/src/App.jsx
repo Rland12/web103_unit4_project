@@ -1,41 +1,24 @@
 import React from 'react'
-import { useRoutes } from 'react-router-dom'
-import Navigation from './components/Navigation'
-import ViewCars from './pages/ViewCars'
-import EditCar from './pages/EditCar'
-import CreateCar from './pages/CreateCar'
-import CarDetails from './pages/CarDetails'
-import './App.css'
+import { Routes, Route, Link } from 'react-router-dom'
+import ItemList from './pages/ItemList.jsx'
+import ItemCreate from './pages/ItemCreate.jsx'
+import ItemDetail from './pages/ItemDetail.jsx'
+import ItemEdit from './pages/ItemEdit.jsx'
 
-const App = () => {
-  let element = useRoutes([
-    {
-      path: '/',
-      element: <CreateCar title='BOLT BUCKET | Customize' />
-    },
-    {
-      path:'/customcars',
-      element: <ViewCars title='BOLT BUCKET | Custom Cars' />
-    },
-    {
-      path: '/customcars/:id',
-      element: <CarDetails title='BOLT BUCKET | View' />
-    },
-    {
-      path: '/edit/:id',
-      element: <EditCar title='BOLT BUCKET | Edit' />
-    }
-  ])
-
+export default function App() {
   return (
-    <div className='app'>
+    <div style={{maxWidth: 960, margin: '0 auto', padding: 24}}>
+      <header style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
+        <Link to="/" style={{textDecoration:'none'}}><h1>👟 Sneaker Personalizer</h1></Link>
+        <Link to="/create">Create</Link>
+      </header>
 
-      <Navigation />
-
-      { element }
-
+      <Routes>
+        <Route path="/" element={<ItemList/>}/>
+        <Route path="/create" element={<ItemCreate/>}/>
+        <Route path="/items/:id" element={<ItemDetail/>}/>
+        <Route path="/items/:id/edit" element={<ItemEdit/>}/>
+      </Routes>
     </div>
   )
 }
-
-export default App
